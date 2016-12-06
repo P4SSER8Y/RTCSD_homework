@@ -2,18 +2,19 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 class State {
 public:
     std::string Name;
     State(std::string);
     State* Trigger(void);
-    void Add(bool(*fn)(void), State* NextState);
+    void Add(std::function<bool(void)> fn, State* NextState);
     void SetEntry(void(*fn)(void));
     void Entry(void);
 
 private:
-    std::vector<bool(*)(void)> Condition;
+    std::vector<std::function<bool(void)>> Condition;
     std::vector<State*> NextState;
     void (*FnEntry)(void);
 };

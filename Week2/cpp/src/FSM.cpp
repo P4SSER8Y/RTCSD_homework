@@ -17,7 +17,7 @@ State* State::Trigger() {
     return nullptr;
 }
 
-void State::Add(bool (*fn)(void), State *NextState) {
+void State::Add(std::function<bool(void)> fn, State *NextState) {
     this->Condition.push_back(fn);
     this->NextState.push_back(NextState);
 }

@@ -6,22 +6,18 @@
 #include <signal.h>
 #include "FSM.h"
 #include "unistd.h"
+#include "Sensor.h"
 
 // In order to check the whole model, all the sensors are set to true
-bool CarIn{true};
-bool CarOut{true};
-bool TopSensor{true};
-bool BottomSensor{true};
+BoolSensor CarIn{true};
+BoolSensor CarOut{true};
+BoolSensor TopSensor{true};
+BoolSensor BottomSensor{true};
 
 void SignalProcess(int n) {
     std::cerr << "Catch Signal No." << n << std::endl;
     exit(0);
 }
-
-bool IsCarInTrue() { return CarIn; }
-bool IsCarOutTrue() { return CarOut; }
-bool IsTopSensorTrue() { return TopSensor; }
-bool IsBottomSensorTrue() { return BottomSensor; }
 
 void S1_Entry(void) {
     std::cout << "Light: Red" << std::endl;
@@ -52,16 +48,16 @@ int main(int argc, char **argv) {
     State S4{"Barrier Falling"};
 
     S1.SetEntry(&S1_Entry);
-    S1.Add(&IsCarInTrue, &S2);
+    S1.Add(std::bind(&BoolSensor::IsTrue, &CarIn), &S2);
 
     S2.SetEntry(&S2_Entry);
-    S2.Add(&IsTopSensorTrue, &S3);
+    S2.Add(std::bind(&BoolSensor::IsTrue, &TopSensor), &S3);
 
     S3.SetEntry(&S3_Entry);
-    S3.Add(&IsCarOutTrue, &S4);
+    S3.Add(std::bind(&BoolSensor::IsTrue, &CarOut), &S4);
 
     S4.SetEntry(&S4_Entry);
-    S4.Add(&IsBottomSensorTrue, &S1);
+    S4.Add(std::bind(&BoolSensor::IsTrue, &BottomSensor), &S1);
 
     Machine simulate{&S1};
 
