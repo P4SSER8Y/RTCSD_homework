@@ -2,7 +2,7 @@
 // Created by troy on 12/10/16.
 //
 
-#include "debug.h"
+#include "trajectory_generator.h"
 
 #include <iostream>
 #include <stdexcept>
