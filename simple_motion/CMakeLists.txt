@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 project(simple_motion)
 
+SET(CMAKE_CXX_STANDARD 11)
  
 # CURRENT DIRECTORY
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
