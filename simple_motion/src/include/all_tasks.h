@@ -7,8 +7,8 @@
 #ifndef SIMPLE_MOTION_ALL_TASKS_H
 #define SIMPLE_MOTION_ALL_TASKS_H
 
-#include "task_trajectory_generator.h"
-#include "task_command_sender.h"
-#include "task_debug.h"
+#include "tasks/trajectory_generator.h"
+#include "tasks/command_sender.h"
+#include "tasks/debug.h"
 
 #endif //SIMPLE_MOTION_ALL_TASKS_H

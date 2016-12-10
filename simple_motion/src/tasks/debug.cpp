@@ -2,6 +2,8 @@
 // Created by troy on 12/10/16.
 //
 
+#include "debug.h"
+
 #include <iomanip>
 #include <fstream>
 

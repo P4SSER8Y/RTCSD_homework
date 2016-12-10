@@ -2,6 +2,7 @@
 // Created by troy on 12/10/16.
 //
 
+#include "command_sender.h"
 
 #include <native/task.h>
 #include <global_variables.h>
