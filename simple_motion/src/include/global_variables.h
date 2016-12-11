@@ -8,16 +8,37 @@
 #define SIMPLE_MOTION_PROGRAM_CONSTANTS_H
 
 #include "native/types.h"
+//#include "native/queue.h"
+#include "native/event.h"
+
 #include "motion_types.h"
+
+extern bool terminated;
 
 extern const RTIME RT_TIME_FREQ;
 extern const double INTERPOLATION_PERIOD;
-extern tAxisSetpoint axis1;
+extern AxisStatus axis_1;
 extern tPosCmd new_cmd;
+
+extern RT_EVENT event_command;
+namespace event_command_mask {
+    const unsigned long kNone = 0x0;
+    const unsigned long kRequest = 0x01;
+    const unsigned long kDone = 0x02;
+    const unsigned long kError = 0x80000000;
+    const unsigned long kAny= 0xffffffff;
+}
+
+//extern QT_QUEUE queue_commmand;
 
 /**
  * @brief Initialize non-const variables
  */
 void init_global_variables(void);
+
+/**
+ * @brief Delete all variables
+ */
+void delete_global_variables(void);
 
 #endif //SIMPLE_MOTION_PROGRAM_CONSTANTS_H

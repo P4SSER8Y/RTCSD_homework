@@ -13,11 +13,10 @@ namespace task {
 
         void main(void *arg)
         {
+            int err;
+            unsigned long event_flag;
             rt_task_set_periodic(NULL, TM_NOW, 2000000000);
 
-            new_cmd.Request = false;
-            new_cmd.Response = false;
-            new_cmd.Done = false;
             new_cmd.Position = 0;
             new_cmd.Velocity = 0;
             new_cmd.Acceleration = 0;
@@ -31,14 +30,20 @@ namespace task {
 
                 if(cycle_count == 1)
                 {
-                    new_cmd.Request = true;
-                    new_cmd.Response = false;
-                    new_cmd.Done = false;
                     new_cmd.Position = 200000;
                     new_cmd.Velocity = 1000;
                     new_cmd.Acceleration = 50;
                     new_cmd.Deceleration = 50;
                     new_cmd.Jerk = 0;
+
+                    rt_event_signal(&event_command, event_command_mask::kRequest);
+
+                    err = rt_event_wait(&event_command,
+                                        event_command_mask::kDone,
+                                        &event_flag,
+                                        EV_ANY,
+                                        TM_INFINITE);
+                    terminated = true;
                 }
             }
         }

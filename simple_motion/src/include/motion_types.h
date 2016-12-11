@@ -6,9 +6,6 @@
 // Data Type
 typedef struct
 {
-    bool Request;
-    bool Response;
-    bool Done;
     double Position;
     double Velocity;
     double Acceleration;
@@ -20,6 +17,6 @@ typedef struct
 {
     double Position;
     double Velocity;
-} tAxisSetpoint;
+} AxisStatus;
 
 #endif
