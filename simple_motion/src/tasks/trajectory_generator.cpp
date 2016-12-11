@@ -25,7 +25,7 @@ namespace task {
 
             rt_task_set_periodic(NULL, TM_NOW, (RTIME)(RT_TIME_FREQ * INTERPOLATION_PERIOD));
 
-            tPosCmd target;
+            TrajectoryParameters target;
             enum Interpolation_State {
                 Idle, Acc, Uniform, Dec, End
             };
@@ -46,7 +46,11 @@ namespace task {
                                             TM_INFINITE);
                         rt_event_clear(&event_command, event_command_mask::kRequest, &event_flag);
 
-                        target = new_cmd;
+                        void *msg;
+                        rt_queue_receive(&queue_command, &msg, TM_INFINITE);
+                        memcpy(&target, msg, sizeof(TrajectoryParameters));
+                        rt_queue_free(&queue_command, msg);
+
                         state = Acc;
                         t0 = now;
                         s0 = axis_1;

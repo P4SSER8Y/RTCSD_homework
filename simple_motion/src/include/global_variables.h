@@ -8,7 +8,7 @@
 #define SIMPLE_MOTION_PROGRAM_CONSTANTS_H
 
 #include "native/types.h"
-//#include "native/queue.h"
+#include "native/queue.h"
 #include "native/event.h"
 
 #include "motion_types.h"
@@ -18,7 +18,6 @@ extern bool terminated;
 extern const RTIME RT_TIME_FREQ;
 extern const double INTERPOLATION_PERIOD;
 extern AxisStatus axis_1;
-extern tPosCmd new_cmd;
 
 extern RT_EVENT event_command;
 namespace event_command_mask {
@@ -29,7 +28,7 @@ namespace event_command_mask {
     const unsigned long kAny= 0xffffffff;
 }
 
-//extern QT_QUEUE queue_commmand;
+extern RT_QUEUE queue_command;
 
 /**
  * @brief Initialize non-const variables

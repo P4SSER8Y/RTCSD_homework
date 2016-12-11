@@ -11,7 +11,7 @@ typedef struct
     double Acceleration;
     double Deceleration;
     double Jerk;
-} tPosCmd;
+} TrajectoryParameters;
 
 typedef struct
 {
