@@ -11,13 +11,31 @@
 #include "native/queue.h"
 #include "native/event.h"
 
-#include "motion_types.h"
+/**
+ * @brief Structure of trajectory parameters
+ */
+typedef struct {
+    double Position;
+    double Velocity;
+    double Acceleration;
+    double Deceleration;
+    double Jerk;
+} TrajectoryParameters;
+
+/**
+ * @brief Axis Status
+ */
+typedef struct {
+    double Position;
+    double Velocity;
+} AxisStatus;
 
 extern bool terminated;
 
 extern const RTIME RT_TIME_FREQ;
 extern const double INTERPOLATION_PERIOD;
 extern AxisStatus axis_1;
+
 
 extern RT_EVENT event_command;
 namespace event_command_mask {

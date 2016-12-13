@@ -10,7 +10,6 @@
 #include "native/task.h"
 #include "native/timer.h"
 
-#include "motion_types.h"
 #include "global_variables.h"
 
 
