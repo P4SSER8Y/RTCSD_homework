@@ -24,7 +24,8 @@ namespace task {
                 rt_task_wait_period(NULL);
                 auto curr = axis_1;
                 auto now = rt_timer_read() / (double) RT_TIME_FREQ;
-                log << std::setiosflags(std::ios::fixed) << now << '\t' << curr.Position << '\t' << curr.Velocity
+                log << std::setiosflags(std::ios::fixed) << now << '\t'
+                    << curr.position << '\t' << curr.velocity
                     << std::endl;
                 log.flush();
             }

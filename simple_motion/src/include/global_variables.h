@@ -12,22 +12,11 @@
 #include "native/event.h"
 
 /**
- * @brief Structure of trajectory parameters
- */
-typedef struct {
-    double Position;
-    double Velocity;
-    double Acceleration;
-    double Deceleration;
-    double Jerk;
-} TrajectoryParameters;
-
-/**
  * @brief Axis Status
  */
 typedef struct {
-    double Position;
-    double Velocity;
+    double position;
+    double velocity;
 } AxisStatus;
 
 extern bool terminated;
