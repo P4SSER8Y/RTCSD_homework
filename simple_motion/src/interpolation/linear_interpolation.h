@@ -1,36 +1,32 @@
 //
-// Created by troy on 12/13/16.
+// Created by troy on 12/15/16.
 //
 
-#pragma once
-
-#ifndef SIMPLE_MOTION_TRAPEZOID_INTERPOLATION_H
-#define SIMPLE_MOTION_TRAPEZOID_INTERPOLATION_H
+#ifndef SIMPLE_MOTION_LINEAR_INTERPOLATION_H
+#define SIMPLE_MOTION_LINEAR_INTERPOLATION_H
 
 #include "interpolation.h"
 #include "global_variables.h"
 
-class TrapezoidInterpolation final : public Interpolation {
+class LinearInterpolation : public Interpolation {
 private:
     InterpolationState interpolate_state;
     std::string type;
     enum {
-        kIdle, kAcceleration, kLinear, kDeceleration, kEnd
+        kIdle, kRunning, kEnd
     } state = kIdle;
 
-    double t0, t1, t2, t3;
-    AxisStatus s0, s1, s2, s3;
+    double t0, t1;
+    AxisStatus s0, s1;
 
 public:
     double position;
     double velocity;
-    double acceleration;
-    double deceleration;
     AxisStatus *axis;
 
-    TrapezoidInterpolation();
+    LinearInterpolation();
 
-    virtual ~TrapezoidInterpolation();
+    virtual ~LinearInterpolation();
 
     virtual InterpolationState check(void);
 
@@ -58,4 +54,4 @@ public:
 };
 
 
-#endif //SIMPLE_MOTION_TRAPEZOID_INTERPOLATION_H
+#endif //SIMPLE_MOTION_LINEAR_INTERPOLATION_H

@@ -47,6 +47,8 @@ namespace task {
                         memcpy(&interpolation, msg, sizeof(Interpolation *));
                         rt_queue_free(&queue_command, msg);
 
+                        std::cerr << "Receive command: " << interpolation->get_type() << std::endl;
+
                         if (interpolation->start(rt_timer_read()) == kIntIdle)
                             state = kTaskRunning;
                         else {

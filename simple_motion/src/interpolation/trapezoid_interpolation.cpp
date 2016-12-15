@@ -21,11 +21,11 @@ TrapezoidInterpolation::~TrapezoidInterpolation() {
 }
 
 InterpolationState TrapezoidInterpolation::check() {
+    interpolate_state = kIntIdle;
     return kIntIdle;
 }
 
 InterpolationState TrapezoidInterpolation::get_status() {
-    interpolate_state = kIntIdle;
     return this->interpolate_state;
 }
 
