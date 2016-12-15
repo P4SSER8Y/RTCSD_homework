@@ -5,9 +5,8 @@
 #include "global_variables.h"
 
 #include <memory>
-#include <include/global_variables.h>
 
-#include "interpolator/interpolation.h"
+#include "interpolation/interpolation.h"
 
 const double INTERPOLATION_PERIOD = 0.001;
 const RTIME RT_TIME_FREQ = 1000000000;
@@ -26,7 +25,7 @@ void init_global_variables() {
     axis_1.velocity = 0;
     terminated = false;
 
-    rt_queue_create(&queue_command, "queue: command", 32 * sizeof(std::shared_ptr<Interpolation>), 32,
+    rt_queue_create(&queue_command, "queue: command", 64 * sizeof(Interpolation *), 64,
                     Q_FIFO | Q_SHARED);
     rt_event_create(&event_command, "event: command", event_command_mask::kNone, EV_FIFO);
 }

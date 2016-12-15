@@ -2,6 +2,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <iostream>
 
 #include <native/task.h>
 
@@ -15,6 +16,7 @@ RT_TASK task_debug;
 
 void catch_signal(int sig)
 {
+    std::cerr << "Catch signal " << sig << std::endl;
     terminated = true;
 }
 

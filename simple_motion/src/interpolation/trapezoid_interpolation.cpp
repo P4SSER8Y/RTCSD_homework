@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <include/global_variables.h>
+#include <iomanip>
 
 #include "global_variables.h"
 
@@ -36,7 +37,7 @@ InterpolationState TrapezoidInterpolation::start(const RTIME start_time_ns) {
     if (this->check() != kIntIdle)
         return kIntIdle;
 
-    static double now = start_time_ns / 1e9;
+    double now = start_time_ns / 1e9;
     state = kAcceleration;
     t0 = now;
     s0 = *axis;
@@ -54,6 +55,11 @@ InterpolationState TrapezoidInterpolation::start(const RTIME start_time_ns) {
     t3 = t2 + velocity / deceleration;
     s3.position = position;
     s3.velocity = 0;
+
+    std::cerr << "start @" << std::setiosflags(std::ios::fixed) << t0 << std::endl <<
+              "acc until " << t1 << std::endl <<
+              "dec @" << t2 << std::endl <<
+              "stop @" << t3 << std::endl;
     std::cerr << "switch to state <Acc>" << std::endl;
     return kIntIdle;
 }

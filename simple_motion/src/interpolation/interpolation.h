@@ -30,7 +30,7 @@ public:
      */
     Interpolation();
 
-    ~Interpolation();
+    virtual ~Interpolation();
 
 //    virtual InterpolationState check(void);
 

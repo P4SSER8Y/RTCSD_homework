@@ -5,14 +5,13 @@
 #include "trajectory_generator.h"
 
 #include <iostream>
-#include <memory>
 #include <stdexcept>
 
 #include "native/task.h"
 #include "native/timer.h"
 
 #include "global_variables.h"
-#include "interpolator/interpolation.h"
+#include "interpolation/interpolation.h"
 
 
 namespace task {
@@ -29,7 +28,7 @@ namespace task {
 
             TaskState state = kTaskIdle;
 
-            std::shared_ptr<Interpolation> interpolation;
+            Interpolation *interpolation = nullptr;
 
             while (1) {
                 rt_task_wait_period(NULL);
@@ -45,7 +44,7 @@ namespace task {
 
                         void *msg;
                         rt_queue_receive(&queue_command, &msg, TM_INFINITE);
-                        memcpy(&interpolation, msg, sizeof(std::shared_ptr<Interpolation>));
+                        memcpy(&interpolation, msg, sizeof(Interpolation *));
                         rt_queue_free(&queue_command, msg);
 
                         if (interpolation->start(rt_timer_read()) == kIntIdle)
@@ -74,7 +73,7 @@ namespace task {
                         break;
                     case kTaskEnd:
                         state = kTaskIdle;
-                        interpolation.reset();
+                        delete (interpolation);
                         rt_event_signal(&event_command,
                                         event_command_mask::kDone);
                         break;
