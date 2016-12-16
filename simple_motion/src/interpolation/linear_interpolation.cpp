@@ -46,7 +46,7 @@ InterpolationState LinearInterpolation::start(const RTIME start_time_ns) {
 
     std::cerr << "start @" << std::setiosflags(std::ios::fixed) << t0 << std::endl <<
               "stop @" << t1 << std::endl;
-    std::cerr << "switch to state <Acc>" << std::endl;
+    std::cerr << "switch to state <Moving>" << std::endl;
 
     state = kRunning;
     return kIntIdle;

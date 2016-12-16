@@ -35,13 +35,6 @@ namespace task {
                 auto now = rt_timer_read();
                 switch (state) {
                     case kTaskIdle:
-                        err = rt_event_wait(&event_command,
-                                            event_command_mask::kRequest,
-                                            &event_flag,
-                                            EV_ANY,
-                                            TM_INFINITE);
-                        rt_event_clear(&event_command, event_command_mask::kRequest, &event_flag);
-
                         void *msg;
                         rt_queue_receive(&queue_command, &msg, TM_INFINITE);
                         memcpy(&interpolation, msg, sizeof(Interpolation *));

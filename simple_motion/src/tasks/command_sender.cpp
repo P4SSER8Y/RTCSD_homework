@@ -38,9 +38,6 @@ namespace task {
                                   new_cmd,
                                   sizeof(Interpolation *),
                                   Q_NORMAL);
-
-                    rt_event_signal(&event_command, event_command_mask::kRequest);
-
                 } else if (cycle_count == 1) {
                     auto new_cmd = (TrapezoidInterpolation **) rt_queue_alloc(&queue_command,
                                                                               sizeof(Interpolation *));
@@ -54,8 +51,6 @@ namespace task {
                                   new_cmd,
                                   sizeof(Interpolation *),
                                   Q_NORMAL);
-
-                    rt_event_signal(&event_command, event_command_mask::kRequest);
                 } else if (cycle_count == 2) {
                     auto new_cmd = (LinearInterpolation **) rt_queue_alloc(&queue_command,
                                                                            sizeof(Interpolation *));
@@ -67,7 +62,6 @@ namespace task {
                                   new_cmd,
                                   sizeof(Interpolation *),
                                   Q_NORMAL);
-                    rt_event_signal(&event_command, event_command_mask::kRequest);
                 } else {
                     err = rt_event_wait(&event_command,
                                         event_command_mask::kDone,
