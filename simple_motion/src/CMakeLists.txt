@@ -11,5 +11,5 @@ INCLUDE_DIRECTORIES(./include)
 
 ADD_SUBDIRECTORY(interpolation)
 
-TARGET_LINK_LIBRARIES(simple_motion interpolator)
+TARGET_LINK_LIBRARIES(simple_motion interpolation)
 TARGET_LINK_LIBRARIES(simple_motion native xenomai pthread rt)
