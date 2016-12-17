@@ -4,9 +4,6 @@
 
 #include "global_variables.h"
 
-#include <memory>
-#include <include/global_variables.h>
-
 #include "interpolation/interpolation.h"
 
 const double INTERPOLATION_PERIOD = 0.001;
