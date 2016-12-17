@@ -19,8 +19,10 @@ std::string Interpolation::get_type() {
     return this->type;
 }
 
-InterpolationState Interpolation::start(const RTIME start_time_ns) {}
+InterpolationState Interpolation::start(const TimeInS now,
+                                        const double start_position,
+                                        const double start_velocity) {}
 
-InterpolationState Interpolation::move(const RTIME curr_time_ns) {}
+InterpolationState Interpolation::move(const TimeInS now) {}
 
 InterpolationState Interpolation::get_status() {}

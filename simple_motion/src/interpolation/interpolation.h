@@ -8,8 +8,8 @@
 #define SIMPLE_MOTION_INTERPOLATION_H
 
 #include <string>
-#include "native/types.h"
-#include "native/timer.h"
+
+typedef double TimeInS;
 
 enum InterpolationState {
     kIntNotYetConfigured,
@@ -24,6 +24,10 @@ private:
     InterpolationState status;
     std::string type;
 public:
+    double p;
+    double v;
+    double a;
+    double j;
 
     /**
      * @brief Constructor with no parameter
@@ -37,16 +41,20 @@ public:
     /**
      * @brief Start Interpolation, it'll check the validation of the command
      * @param start_time_ns t0 in nanosecond
+     * @param start_position start position
+     * @param start_velocity start velocity
      * @return current interpolating status, only kError/kRunning
      */
-    virtual InterpolationState start(const RTIME start_time_ns);
+    virtual InterpolationState start(const TimeInS now,
+                                     const double start_position,
+                                     const double start_velocity);
 
     /**
      * @brief interpolate once
      * @param curr_time_ns t in nanosecond
      * @return current interpolating status
      */
-    virtual InterpolationState move(const RTIME curr_time_ns);
+    virtual InterpolationState move(const TimeInS now);
 
     /**
      * @brief return current interpolating status

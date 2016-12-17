@@ -6,9 +6,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <include/global_variables.h>
-
-#include "global_variables.h"
 
 LinearInterpolation::LinearInterpolation() {
     this->type = "linear interpolation";
@@ -32,15 +29,20 @@ std::string LinearInterpolation::get_type() {
     return this->type;
 }
 
-InterpolationState LinearInterpolation::start(const RTIME start_time_ns) {
+InterpolationState LinearInterpolation::start(const TimeInS now,
+                                              const double start_position,
+                                              const double start_velocity) {
     if (this->check() != kIntIdle)
         return kIntIdle;
 
-    double now = start_time_ns / 1e9;
-    t0 = now;
-    s0 = *axis;
+    this->p = start_position;
+    this->v = start_velocity;
 
-    t1 = t0 + (position - axis->position) / velocity;
+    t0 = now;
+    s0.position = start_position;
+    s0.velocity = start_velocity;
+
+    t1 = t0 + (position - this->p) / velocity;
     s1.position = position;
     s1.velocity = 0;
 
@@ -52,15 +54,15 @@ InterpolationState LinearInterpolation::start(const RTIME start_time_ns) {
     return kIntIdle;
 }
 
-InterpolationState LinearInterpolation::move(const RTIME curr_time_ns) {
-    double now = curr_time_ns / 1e9;
+InterpolationState LinearInterpolation::move(const TimeInS now) {
     if (now >= t1) {
-        axis->position = s1.position;
-        axis->velocity = s1.velocity;
+        this->p = s1.position;
+        this->v = s1.velocity;
+        state = kEnd;
         return kIntDone;
     } else {
-        axis->position = s0.position + this->velocity * (now - t0);
-        axis->velocity = this->velocity;
+        this->p = s0.position + this->velocity * (now - t0);
+        this->v = this->velocity;
         return kIntRunning;
     }
 }

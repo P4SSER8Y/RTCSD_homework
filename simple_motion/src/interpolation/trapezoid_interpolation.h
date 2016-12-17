@@ -8,7 +8,6 @@
 #define SIMPLE_MOTION_TRAPEZOID_INTERPOLATION_H
 
 #include "interpolation.h"
-#include "global_variables.h"
 
 class TrapezoidInterpolation final : public Interpolation {
 private:
@@ -19,14 +18,16 @@ private:
     } state = kIdle;
 
     double t0, t1, t2, t3;
-    AxisStatus s0, s1, s2, s3;
+    struct {
+        double position;
+        double velocity;
+    } s0, s1, s2, s3;
 
 public:
     double position;
     double velocity;
     double acceleration;
     double deceleration;
-    AxisStatus *axis;
 
     TrapezoidInterpolation();
 
@@ -39,14 +40,16 @@ public:
      * @param start_time_ns t0 in nanosecond
      * @return current interpolating status, only kError/kRunning
      */
-    virtual InterpolationState start(const RTIME start_time_ns);
+    virtual InterpolationState start(const TimeInS now,
+                                     const double start_position,
+                                     const double start_velocity);
 
     /**
      * @brief interpolate once
      * @param curr_time_ns t in nanosecond
      * @return current interpolating status
      */
-    virtual InterpolationState move(const RTIME curr_time_ns);
+    virtual InterpolationState move(const TimeInS now);
 
     /**
      * @brief return current interpolating status

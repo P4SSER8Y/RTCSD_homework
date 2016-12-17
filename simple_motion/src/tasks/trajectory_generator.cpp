@@ -12,16 +12,12 @@
 #include "native/task.h"
 #include "native/timer.h"
 
-#include "global_variables.h"
 #include "interpolation/interpolation.h"
 
 
 namespace task {
     namespace trajectory_generator {
         void main(void *arg) {
-            int err;
-            unsigned long event_flag;
-
             rt_task_set_periodic(NULL, TM_NOW, (RTIME) (RT_TIME_FREQ * INTERPOLATION_PERIOD));
 
             enum TaskState {
@@ -49,15 +45,20 @@ namespace task {
 
                         std::cerr << "Receive command: " << interpolation->get_type() << std::endl;
 
-                        if (interpolation->start(rt_timer_read()) == kIntIdle)
+                        if (interpolation->start(rt_timer_read() / 1e9,
+                                                 axis->position,
+                                                 axis->velocity) == kIntIdle)
                             state = kTaskRunning;
                         else {
                             state = kTaskError;
                             std::cerr << "Error occurred\nProgram paused" << std::endl;
                             break;
                         }
-                    case kTaskRunning:
-                        switch (interpolation->move(now)) {
+                    case kTaskRunning: {
+                        auto ret = interpolation->move(now / 1e9);
+                        axis->position = interpolation->p;
+                        axis->velocity = interpolation->v;
+                        switch (ret) {
                             case kIntError:
                                 state = kTaskError;
                                 std::cerr << "Error occurred" << std::endl;
@@ -72,6 +73,7 @@ namespace task {
                                 std::cerr << "unknown state" << std::endl;
                                 break;
                         }
+                    }
                         break;
                     case kTaskEnd:
                         state = kTaskIdle;
