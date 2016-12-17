@@ -1,0 +1,26 @@
+{
+  "interpolation": [
+    {
+      "type": "linear",
+      "axis": 2,
+      "position": 13200,
+      "velocity": 300
+    },
+    {
+      "type": "trapezoid",
+      "axis": 1,
+      "position": 60000,
+      "velocity": 5000,
+      "acceleration": 500,
+      "deceleration": 500
+    },
+    {
+      "type": "trapezoid",
+      "axis": 1,
+      "position": 0,
+      "velocity": -5000,
+      "acceleration": -500,
+      "deceleration": -500
+    }
+  ]
+}

@@ -4,7 +4,9 @@
 
 #include "command_sender.h"
 
-#include <native/task.h>
+#include <json/json.h>
+#include <fstream>
+#include <iostream>
 
 #include "global_variables.h"
 #include "interpolation/interpolation.h"
@@ -45,10 +47,47 @@ namespace task {
                                  Q_NORMAL);
         }
 
+        RT_QUEUE &int_to_axis_queue(const int n) {
+            switch (n) {
+                case 1:
+                    return queue_axis_x;
+                case 2:
+                    return queue_axis_y;
+            }
+        }
+
+        void json_parser_linear(Json::Value value) {
+            RT_QUEUE &queue = int_to_axis_queue(value["axis"].asInt());
+            double position = value["position"].asDouble();
+            double velocity = value["velocity"].asDouble();
+            send_command_linear(queue, position, velocity);
+        }
+
+        void json_parser_trapezoid(Json::Value value) {
+            RT_QUEUE &queue = int_to_axis_queue(value["axis"].asInt());
+            double position = value["position"].asDouble();
+            double velocity = value["velocity"].asDouble();
+            double acceleration = value["acceleration"].asDouble();
+            double deceleration = value["deceleration"].asDouble();
+            send_command_trapezoid(queue, position, velocity, acceleration, deceleration);
+        }
+
         void main(void *arg) {
-            send_command_trapezoid(queue_axis_x, 6e4, 5e3, 5e2, 5e2);
-            send_command_linear(queue_axis_y, 13200, 300);
-            send_command_trapezoid(queue_axis_x, 0, -5e3, -5e2, -5e2);
+            Json::Reader reader;
+            Json::Value root;
+            std::ifstream is;
+            is.open("commands.json", std::ios::binary);
+            if (reader.parse(is, root, false))
+                for (auto i = 0; i < root["interpolation"].size(); i++) {
+                    std::string type = root["interpolation"][i]["type"].asString();
+                    if (type == "linear")
+                        json_parser_linear(root["interpolation"][i]);
+                    else if (type == "trapezoid")
+                        json_parser_trapezoid(root["interpolation"][i]);
+                    else
+                        std::cout << "INVALID: " << i << std::endl;
+                }
+            is.close();
         }
     }
 }
