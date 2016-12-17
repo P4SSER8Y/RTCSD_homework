@@ -1,11 +1,10 @@
-AUX_SOURCE_DIRECTORY(. SRC_CODES)
 SET(ALL_TASKS
         tasks/trajectory_generator.cpp
         tasks/command_sender.cpp
-        tasks/debug.cpp
+        tasks/print_to_files.cpp
         )
 
-ADD_EXECUTABLE(simple_motion ${SRC_CODES} ${ALL_TASKS})
+ADD_EXECUTABLE(simple_motion main.cpp global_variables.cpp ${ALL_TASKS})
 
 INCLUDE_DIRECTORIES(.)
 INCLUDE_DIRECTORIES(./include)

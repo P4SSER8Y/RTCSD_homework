@@ -17,13 +17,14 @@
 typedef struct {
     double position;
     double velocity;
+    char name[8];
 } AxisStatus;
 
 extern bool terminated;
 
 extern const RTIME RT_TIME_FREQ;
 extern const double INTERPOLATION_PERIOD;
-extern AxisStatus axis_1;
+extern AxisStatus axis_x, axis_y;
 
 
 extern RT_EVENT event_command;
@@ -35,7 +36,7 @@ namespace event_command_mask {
     const unsigned long kAny= 0xffffffff;
 }
 
-extern RT_QUEUE queue_command;
+extern RT_QUEUE queue_axis_x, queue_axis_y;
 
 /**
  * @brief Initialize non-const variables

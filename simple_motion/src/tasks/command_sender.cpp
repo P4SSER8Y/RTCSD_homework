@@ -25,43 +25,43 @@ namespace task {
 
                 cycle_count = cycle_count + 1;
 
-                if (cycle_count == 3) {
-                    auto new_cmd = (TrapezoidInterpolation **) rt_queue_alloc(&queue_command,
+                if (cycle_count == 2) {
+                    auto new_cmd = (TrapezoidInterpolation **) rt_queue_alloc(&queue_axis_x,
                                                                               sizeof(Interpolation *));
                     *new_cmd = new TrapezoidInterpolation();
                     (*new_cmd)->position = 60000;
                     (*new_cmd)->velocity = 5000;
                     (*new_cmd)->acceleration = 500;
                     (*new_cmd)->deceleration = 500;
-                    (*new_cmd)->axis = &axis_1;
-                    rt_queue_send(&queue_command,
+                    (*new_cmd)->axis = &axis_x;
+                    rt_queue_send(&queue_axis_x,
                                   new_cmd,
                                   sizeof(Interpolation *),
                                   Q_NORMAL);
                 } else if (cycle_count == 1) {
-                    auto new_cmd = (TrapezoidInterpolation **) rt_queue_alloc(&queue_command,
+                    auto new_cmd = (TrapezoidInterpolation **) rt_queue_alloc(&queue_axis_y,
                                                                               sizeof(Interpolation *));
                     *new_cmd = new TrapezoidInterpolation();
                     (*new_cmd)->position = -60000;
                     (*new_cmd)->velocity = -5000;
                     (*new_cmd)->acceleration = -5000;
                     (*new_cmd)->deceleration = -5000;
-                    (*new_cmd)->axis = &axis_1;
-                    rt_queue_send(&queue_command,
+                    (*new_cmd)->axis = &axis_y;
+                    rt_queue_send(&queue_axis_y,
                                   new_cmd,
                                   sizeof(Interpolation *),
                                   Q_NORMAL);
-                } else if (cycle_count == 2) {
-                    auto new_cmd = (LinearInterpolation **) rt_queue_alloc(&queue_command,
-                                                                           sizeof(Interpolation *));
-                    *new_cmd = new LinearInterpolation();
-                    (*new_cmd)->position = 2000;
-                    (*new_cmd)->velocity = 5000;
-                    (*new_cmd)->axis = &axis_1;
-                    rt_queue_send(&queue_command,
-                                  new_cmd,
-                                  sizeof(Interpolation *),
-                                  Q_NORMAL);
+//                } else if (cycle_count == 2) {
+//                    auto new_cmd = (LinearInterpolation **) rt_queue_alloc(&queue_axis_y,
+//                                                                           sizeof(Interpolation *));
+//                    *new_cmd = new LinearInterpolation();
+//                    (*new_cmd)->position = 2000;
+//                    (*new_cmd)->velocity = 5000;
+//                    (*new_cmd)->axis = &axis_y;
+//                    rt_queue_send(&queue_axis_y,
+//                                  new_cmd,
+//                                  sizeof(Interpolation *),
+//                                  Q_NORMAL);
                 } else {
                     err = rt_event_wait(&event_command,
                                         event_command_mask::kDone,

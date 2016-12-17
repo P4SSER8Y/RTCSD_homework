@@ -2,7 +2,7 @@
 // Created by troy on 12/10/16.
 //
 
-#include "debug.h"
+#include "print_to_files.h"
 
 #include <iomanip>
 #include <fstream>
@@ -22,10 +22,12 @@ namespace task {
             printf("Task Debug Init\n");
             while (1) {
                 rt_task_wait_period(NULL);
-                auto curr = axis_1;
+                auto curr_x = axis_x;
+                auto curr_y = axis_y;
                 auto now = rt_timer_read() / (double) RT_TIME_FREQ;
                 log << std::setiosflags(std::ios::fixed) << now << '\t'
-                    << curr.position << '\t' << curr.velocity
+                    << curr_x.position << '\t' << curr_x.velocity << '\t'
+                    << curr_y.position << '\t' << curr_y.velocity << '\t'
                     << std::endl;
                 log.flush();
             }
