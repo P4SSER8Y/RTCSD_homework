@@ -61,8 +61,6 @@ InterpolationState TrapezoidInterpolation::start(const TimeInS now,
 }
 
 InterpolationState TrapezoidInterpolation::move(const TimeInS now) {
-//    if ((this->interpolate_state != kIntRunning) || (this->interpolate_state != kIntIdle))
-//        return this->interpolate_state;
 
     switch (this->state) {
         case kAcceleration:

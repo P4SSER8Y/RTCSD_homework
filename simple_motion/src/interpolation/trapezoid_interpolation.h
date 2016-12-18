@@ -38,7 +38,7 @@ public:
 
     /**
      * @brief Start Interpolation, it'll check the validation of the command
-     * @param start_time_ns t0 in nanosecond
+     * @param now t0 in second
      * @return current interpolating status, only kError/kRunning
      */
     virtual InterpolationState start(const TimeInS now,
@@ -47,7 +47,7 @@ public:
 
     /**
      * @brief interpolate once
-     * @param curr_time_ns t in nanosecond
+     * @param now t in second
      * @return current interpolating status
      */
     virtual InterpolationState move(const TimeInS now);

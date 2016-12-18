@@ -34,7 +34,7 @@ protected:
     double j;
 
     /**
-     * @brief Not allow create instance
+     * @brief Not allow create instance directly
      */
     Interpolation();
 
@@ -42,6 +42,7 @@ public:
     virtual ~Interpolation();
 
     /**
+     * @brief initialize the interpolation alogrithm (pure virtual function)
      * @param start_position start position
      * @param start_velocity start velocity
      * @return current interpolating status, only kError/kRunning
