@@ -7,7 +7,7 @@
 
 #include "interpolation.h"
 
-class LinearInterpolation : public Interpolation {
+class LinearInterpolation final : public Interpolation {
 private:
     InterpolationState interpolate_state;
     std::string type;
@@ -33,7 +33,7 @@ public:
 
     /**
      * @brief Start Interpolation, it'll check the validation of the command
-     * @param start_time_ns t0 in nanosecond
+     * @param now t0 in second
      * @return current interpolating status, only kError/kRunning
      */
     virtual InterpolationState start(const TimeInS now,
@@ -42,18 +42,10 @@ public:
 
     /**
      * @brief interpolate once
-     * @param curr_time_ns t in nanosecond
+     * @param now t in second
      * @return current interpolating status
      */
     virtual InterpolationState move(const TimeInS now);
-
-    /**
-     * @brief return current interpolating status
-     * @return interpolating status
-     */
-    virtual InterpolationState get_status(void);
-
-    virtual std::string get_type(void);
 };
 
 

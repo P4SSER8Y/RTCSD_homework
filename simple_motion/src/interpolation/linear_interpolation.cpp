@@ -9,24 +9,13 @@
 
 LinearInterpolation::LinearInterpolation() {
     this->type = "linear interpolation";
-    std::cerr << "initial linear interpolation" << std::endl;
 }
 
-LinearInterpolation::~LinearInterpolation() {
-    std::cerr << "destroy linear interpolation" << std::endl;
-}
+LinearInterpolation::~LinearInterpolation() {}
 
 InterpolationState LinearInterpolation::check() {
     interpolate_state = kIntIdle;
     return kIntIdle;
-}
-
-InterpolationState LinearInterpolation::get_status() {
-    return this->interpolate_state;
-}
-
-std::string LinearInterpolation::get_type() {
-    return this->type;
 }
 
 InterpolationState LinearInterpolation::start(const TimeInS now,
@@ -37,6 +26,8 @@ InterpolationState LinearInterpolation::start(const TimeInS now,
 
     this->p = start_position;
     this->v = start_velocity;
+    this->a = 0;
+    this->j = 0;
 
     t0 = now;
     s0.position = start_position;

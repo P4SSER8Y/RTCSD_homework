@@ -2,27 +2,37 @@
 // Created by troy on 12/12/16.
 //
 
-#include <iostream>
 #include "interpolation.h"
+
+#include <stdexcept>
 
 Interpolation::Interpolation() {
     this->status = kIntNotYetConfigured;
     this->type = "unkown";
-    std::cerr << "initial interpolation" << std::endl;
 }
 
-Interpolation::~Interpolation() {
-    std::cerr << "destroy interpolation" << std::endl;
-}
+Interpolation::~Interpolation() {}
 
 std::string Interpolation::get_type() {
     return this->type;
 }
 
-InterpolationState Interpolation::start(const TimeInS now,
-                                        const double start_position,
-                                        const double start_velocity) {}
+InterpolationState Interpolation::get_status() {
+    return this->status;
+}
 
-InterpolationState Interpolation::move(const TimeInS now) {}
+double Interpolation::get_position(void) {
+    return this->p;
+}
 
-InterpolationState Interpolation::get_status() {}
+double Interpolation::get_velocity(void) {
+    return this->v;
+}
+
+double Interpolation::get_acceleration(void) {
+    return this->a;
+}
+
+double Interpolation::get_jerk(void) {
+    return this->j;
+}

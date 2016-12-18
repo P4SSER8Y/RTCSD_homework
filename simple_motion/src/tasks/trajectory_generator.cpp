@@ -56,8 +56,8 @@ namespace task {
                         }
                     case kTaskRunning: {
                         auto ret = interpolation->move(now / 1e9);
-                        axis->position = interpolation->p;
-                        axis->velocity = interpolation->v;
+                        axis->position = interpolation->get_position();
+                        axis->velocity = interpolation->get_velocity();
                         switch (ret) {
                             case kIntError:
                                 state = kTaskError;
