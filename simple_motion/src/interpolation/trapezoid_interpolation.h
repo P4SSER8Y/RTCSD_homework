@@ -21,6 +21,7 @@ private:
     struct {
         double position;
         double velocity;
+        double acceleration;
     } s0, s1, s2, s3;
 
 public:
@@ -50,14 +51,6 @@ public:
      * @return current interpolating status
      */
     virtual InterpolationState move(const TimeInS now);
-
-    /**
-     * @brief return current interpolating status
-     * @return interpolating status
-     */
-    virtual InterpolationState get_status(void);
-
-    virtual std::string get_type(void);
 };
 
 

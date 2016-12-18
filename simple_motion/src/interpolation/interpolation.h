@@ -11,6 +11,9 @@
 
 typedef double TimeInS;
 
+/**
+ * Interpolation state
+ */
 enum InterpolationState {
     kIntNotYetConfigured,
     kIntIdle,
@@ -23,38 +26,36 @@ class Interpolation {
 private:
     InterpolationState status;
     std::string type;
-public:
+
+protected:
     double p;
     double v;
     double a;
     double j;
 
     /**
-     * @brief Constructor with no parameter
+     * @brief Not allow create instance
      */
     Interpolation();
 
+public:
     virtual ~Interpolation();
 
-//    virtual InterpolationState check(void);
-
     /**
-     * @brief Start Interpolation, it'll check the validation of the command
-     * @param start_time_ns t0 in nanosecond
      * @param start_position start position
      * @param start_velocity start velocity
      * @return current interpolating status, only kError/kRunning
      */
     virtual InterpolationState start(const TimeInS now,
                                      const double start_position,
-                                     const double start_velocity);
+                                     const double start_velocity) = 0;
 
     /**
-     * @brief interpolate once
-     * @param curr_time_ns t in nanosecond
+     * @brief interpolate once (pure virtual function)
+     * @param TimeInS current time stamp
      * @return current interpolating status
      */
-    virtual InterpolationState move(const TimeInS now);
+    virtual InterpolationState move(const TimeInS now) = 0;
 
     /**
      * @brief return current interpolating status
@@ -62,7 +63,35 @@ public:
      */
     virtual InterpolationState get_status(void);
 
-    virtual std::string get_type(void);
+    /**
+     * @brief return the type of this interpolation
+     * @return the type of this interpolation
+     */
+    std::string get_type(void);
+
+    /**
+     * @brief return the position
+     * @return the position
+     */
+    double get_position(void);
+
+    /**
+     * @brief return the velocity
+     * @return the velocity
+     */
+    double get_velocity(void);
+
+    /**
+     * @brief return the acceleration
+     * @return the acceleration
+     */
+    double get_acceleration(void);
+
+    /**
+     * @brief return the jerk
+     * @return the jerk
+     */
+    double get_jerk(void);
 };
 
 
