@@ -19,5 +19,8 @@ To-do List
     - [x] 使用jsoncpp库解析json参数
     - [ ] 加入信号量，防止爆队列
 - [ ] 优化算法，降低CPU使用率
+- [ ] Open Dynamics Engine
+    - [x] 引入
+    - [ ] 碰撞检测及反馈任务
 - [x] DEBUG
     - [x] 不能同时插入多个插值指令。

@@ -11,6 +11,7 @@
 #include <drawstuff/drawstuff.h>
 
 #include <global_variables.h>
+#include <include/global_variables.h>
 
 namespace task {
     namespace ode {
@@ -20,16 +21,18 @@ namespace task {
         const float kTimeStep = 0.1;
 
         static void start() {
-            static float xyz[3] = {2.0f, -2.0f, 1.76f};
-            static float hpr[3] = {140.0f, -17.0f, 0.0f};
+            static float xyz[3] = {0, 0, 100};
+            static float hpr[3] = {90, -90, 0.0f};
             dsSetViewpoint(xyz, hpr);
         }
 
         static void simLoop (int pause) {
+            const float r = 2;
+            const float kScaleFactor = 150.0;
             dWorldStep(world, kTimeStep);
-            auto pos = dBodyGetPosition(sphere);
+            double pos[3] = {axis_x.position / kScaleFactor, axis_y.position / kScaleFactor, r};
             auto rot = dBodyGetRotation(sphere);
-            dsDrawSphereD(pos, rot, 1);
+            dsDrawSphereD(pos, rot, r);
         }
 
         void main(void *arg) {
@@ -65,17 +68,9 @@ namespace task {
             fn.command = nullptr;
             fn.path_to_textures = "./textures";
 
-            dsSimulationLoop(0, nullptr, 640, 480, &fn);
-//            int cnt = 0;
-//            while (!terminated) {
-//                rt_task_wait_period(NULL);
-//                if (++cnt > 100)
-//                    break;
-//
-//                dWorldStep(world, kTimeStep);
-//                const dReal *pos = dBodyGetPosition(sphere);
-//                rt_printf("[ode] sphere(%0.1f, %0.1f, %0.1f)\n", pos[0], pos[1], pos[2]);
-//            }
+            dsSimulationLoop(0, nullptr, 640, 640, &fn);
+
+            terminated = true;
             dBodyDestroy(sphere);
             dWorldDestroy(world);
             dCloseODE();
