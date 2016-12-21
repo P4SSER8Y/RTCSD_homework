@@ -29,7 +29,6 @@ namespace task {
             auto axis = (AxisStatus *) arg;
             RT_QUEUE queue_command;
             rt_queue_bind(&queue_command, axis->name, TM_INFINITE);
-            rt_printf("Name: %s\t Queue Addr: %ld\n", axis->name, (long) &queue_command);
 
             Interpolation *interpolation = nullptr;
 

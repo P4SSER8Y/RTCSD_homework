@@ -10,5 +10,6 @@
 #include "tasks/trajectory_generator.h"
 #include "tasks/command_sender.h"
 #include "tasks/print_to_files.h"
+#include "tasks/ode.h"
 
 #endif //SIMPLE_MOTION_ALL_TASKS_H

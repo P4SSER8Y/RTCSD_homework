@@ -19,7 +19,6 @@ namespace task {
 
             std::ofstream log{"debug.log"};
 
-            printf("Task Debug Init\n");
             while (1) {
                 rt_task_wait_period(NULL);
                 auto curr_x = axis_x;
