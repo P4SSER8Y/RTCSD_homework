@@ -45,6 +45,9 @@ void delete_tasks(void) {
     rt_task_delete(&task_debug);
 }
 
+void join_tasks(void) {
+}
+
 int main(int argc, char* argv[])
 {
     signal(SIGTERM, catch_signal);
@@ -61,6 +64,7 @@ int main(int argc, char* argv[])
     }
     printf("End! \n");
 
+    join_tasks();
     delete_tasks();
     delete_global_variables();
 
