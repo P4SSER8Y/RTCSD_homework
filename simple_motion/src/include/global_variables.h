@@ -7,9 +7,10 @@
 #ifndef SIMPLE_MOTION_PROGRAM_CONSTANTS_H
 #define SIMPLE_MOTION_PROGRAM_CONSTANTS_H
 
-#include "native/types.h"
-#include "native/queue.h"
-#include "native/event.h"
+#include <native/types.h>
+#include <native/queue.h>
+#include <native/event.h>
+#include <native/pipe.h>
 
 /**
  * @brief Axis Status
@@ -37,6 +38,8 @@ namespace event_command_mask {
 }
 
 extern RT_QUEUE queue_axis_x, queue_axis_y;
+
+extern RT_PIPE pipe_ui;
 
 /**
  * @brief Initialize non-const variables
