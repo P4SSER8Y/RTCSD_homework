@@ -10,9 +10,35 @@ To-do List
 
 见[TODO.md](TODO.md)
 
+编译&运行
+-----------
+
+0. 环境要求
+    + 编译环境
+        + xenomai 2.6.5 开发库
+        + jsoncpp 库
+        + CppUnit 库
+        + 带 drawstuff 的 ODE 库
+    + 运行环境
+        + 正常运行 Xenomai 2.6.5 内核的 Linux 系统
+        + Xenomai 需装有 Native Skin
+        + 图形界面
+1. 创建生成文件夹
+2. 执行命令：`cmake <工程根目录>`
+3. 执行编译命令：`make`
+4. 在生成文件夹下的`build`目录下有生成的二进制文件
+5. 复制`<工程根目录>/textures`到`build`下，创建或复制`commands_example.json`到`build/commands.json`下。
+6. 执行
+    + 单元测试：`build/unit_test`
+    + 主程序：`build/simple_motion`
+7. `build/debug.log`会输出坐标信息，格式为
+    + `时间 <tab> X轴坐标 <tab> X方向速度 <tab> Y轴坐标 <tab> Y方向速度`
 
 What's New
 -----------
++ 2017-01-02
+    + 加入线性插值类的单元测试
+    + 补充文档
 
 + 2016-12-28
     - 修改cmake文件，自动确定外部库文件的位置，提高移植性
