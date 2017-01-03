@@ -22,5 +22,4 @@ To-do List
 - [ ] Open Dynamics Engine
     - [x] 引入
     - [ ] 碰撞检测及反馈任务
-- [x] DEBUG
-    - [x] 不能同时插入多个插值指令。
+- [x] 对插值类进行单元测试

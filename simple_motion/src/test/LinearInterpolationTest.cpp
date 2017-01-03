@@ -7,7 +7,6 @@
 #include "interpolation/linear_interpolation.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(LinearInterpolationTest);                      // 注册到全局测试集
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(LinearInterpolationTest, "unit_test");  // 注册为单一测试集
 
 void LinearInterpolationTest::test_normal_1() {
     LinearInterpolation algorithm;
