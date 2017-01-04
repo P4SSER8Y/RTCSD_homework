@@ -1,0 +1,3 @@
+[submodule "air_hockey"]
+	path = air_hockey
+	url = git@github.com:RTCSD2016/air_hockey.git
